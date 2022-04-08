@@ -34,8 +34,9 @@ pipeline {
   {
     steps
 	{   sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 136223150925.dkr.ecr.ap-south-1.amazonaws.com'
-	    sh 'docker tag s3-repository:latest 136223150925.dkr.ecr.ap-south-1.amazonaws.com/s3-repository:newimage'
-	    sh 'docker push 136223150925.dkr.ecr.ap-south-1.amazonaws.com/s3-repository:newimage'
+	    sh 'docker build -t front-back-repo .'
+	    sh 'docker tag front-back-repo:latest 136223150925.dkr.ecr.ap-south-1.amazonaws.com/front-back-repo:latest'
+            sh 'docker push 136223150925.dkr.ecr.ap-south-1.amazonaws.com/front-back-repo:latest'
 		echo "deploying docker image"
 	}
   }
@@ -43,4 +44,5 @@ pipeline {
     }
     
 }
+
 
